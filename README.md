@@ -48,8 +48,10 @@ Returns a function wrapping the `propType` argument with a check to determine if
 
 Returns an augmented version of `React.PropTypes` with `isDeprecated` added to all top level properties.
 
-### `React.PropTypes.[type].isDeprecated(message: string)`
-Returns the `[type]` it is called on and uses `console.warn` to log out the `message`.
+### `[type].isDeprecated(message: string)`
+If you use the `addIsDeprecated` function to return a new copy of `React.PropTypes` then each type will have an `isDeprecated` message.
+It is identical to `deprecate` with the exception that it is already
+bound to the `[type]` and just accepts the message.
 
 ## License
 
