@@ -1,6 +1,6 @@
 {
   "name": "react-is-deprecated",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "Adds an isDeprecated method to the React.PropTypes object",
   "main": "dist.js",
   "scripts": {
