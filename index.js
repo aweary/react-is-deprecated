@@ -34,10 +34,7 @@ export function addIsDeprecated(PropTypes) {
       let propType = newPropTypes[type];
       propType = propType.bind(newPropTypes);
       propType.isDeprecated = deprecate.bind(newPropTypes, propType);
-      newPropTypes = {
-        ...newPropTypes,
-        [type]: propType
-      }
+      newPropTypes[type] = propType;
     }
   }
   return newPropTypes;

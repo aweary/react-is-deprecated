@@ -9,8 +9,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 exports.deprecate = deprecate;
 exports.addIsDeprecated = addIsDeprecated;
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 /**
  * Wraps a singular React.PropTypes.[type] with
  * a console.warn call that is only called if the
@@ -52,7 +50,7 @@ function addIsDeprecated(PropTypes) {
       var propType = newPropTypes[type];
       propType = propType.bind(newPropTypes);
       propType.isDeprecated = deprecate.bind(newPropTypes, propType);
-      newPropTypes = _extends({}, newPropTypes, _defineProperty({}, type, propType));
+      newPropTypes[type] = propType;
     }
   }
   return newPropTypes;
