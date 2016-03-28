@@ -3,8 +3,24 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = addIsDeprecated;
-function isDeprecated(propType, message) {
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+exports.deprecate = deprecate;
+exports.addIsDeprecated = addIsDeprecated;
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+/**
+ * Wraps a singular React.PropTypes.[type] with
+ * a console.warn call that is only called if the
+ * prop is not undefined/null and is only called
+ * once.
+ * @param  {Object} propType React.PropType type
+ * @param  {String} message  Deprecation message
+ * @return {Function}        ReactPropTypes checkType
+ */
+function deprecate(propType, message) {
   var warned = false;
   return function () {
     for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
@@ -23,12 +39,21 @@ function isDeprecated(propType, message) {
   };
 }
 
+/**
+ * Returns a copy of `PropTypes` with an `isDeprecated`
+ * method available on all top-level propType options.
+ * @param {React.PropTypes}  PropTypes
+ * @return {React.PropTypes} newPropTypes
+ */
 function addIsDeprecated(PropTypes) {
-  for (var type in PropTypes) {
-    if (PropTypes.hasOwnProperty(type)) {
-      var propType = PropTypes[type];
-      PropTypes[type].isDeprecated = isDeprecated.bind(PropTypes, propType);
+  var newPropTypes = _extends({}, PropTypes);
+  for (var type in newPropTypes) {
+    if (newPropTypes.hasOwnProperty(type)) {
+      var propType = newPropTypes[type];
+      propType = propType.bind(newPropTypes);
+      propType.isDeprecated = deprecate.bind(newPropTypes, propType);
+      newPropTypes = _extends({}, newPropTypes, _defineProperty({}, type, propType));
     }
   }
-  return PropTypes;
+  return newPropTypes;
 }
