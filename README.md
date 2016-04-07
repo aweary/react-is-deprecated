@@ -1,4 +1,4 @@
-# react-is-deprecated
+# react-is-deprecated [![Build Status](https://travis-ci.org/Aweary/react-is-deprecated.svg?branch=master)](https://travis-ci.org/Aweary/react-is-deprecated)
 
 > Add an `isDeprecated` to your React PropTypes.
 
