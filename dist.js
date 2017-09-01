@@ -25,8 +25,8 @@ function deprecate(propType, message) {
       args[_key] = arguments[_key];
     }
 
-    var props = args[0];
-    var propName = args[1];
+    var props = args[0],
+        propName = args[1];
 
     var prop = props[propName];
     if (prop !== undefined && prop !== null && !warned) {
@@ -46,7 +46,7 @@ function deprecate(propType, message) {
 function addIsDeprecated(PropTypes) {
   var newPropTypes = _extends({}, PropTypes);
   for (var type in newPropTypes) {
-    if (newPropTypes.hasOwnProperty(type)) {
+    if (newPropTypes.hasOwnProperty(type) && typeof newPropTypes[type] === "function") {
       var propType = newPropTypes[type];
       propType = propType.bind(newPropTypes);
       propType.isDeprecated = deprecate.bind(newPropTypes, propType);

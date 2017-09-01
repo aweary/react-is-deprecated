@@ -30,7 +30,7 @@ export function deprecate(propType, message) {
 export function addIsDeprecated(PropTypes) {
   let newPropTypes = {...PropTypes};
   for (const type in newPropTypes) {
-    if (newPropTypes.hasOwnProperty(type)) {
+    if (newPropTypes.hasOwnProperty(type) && typeof newPropTypes[type] === "function") {
       let propType = newPropTypes[type];
       propType = propType.bind(newPropTypes);
       propType.isDeprecated = deprecate.bind(newPropTypes, propType);
