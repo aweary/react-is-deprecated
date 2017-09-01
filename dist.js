@@ -46,7 +46,7 @@ function deprecate(propType, message) {
 function addIsDeprecated(PropTypes) {
   var newPropTypes = _extends({}, PropTypes);
   for (var type in newPropTypes) {
-    if (newPropTypes.hasOwnProperty(type) && typeof newPropTypes[type] === "function") {
+    if (newPropTypes.hasOwnProperty(type) && newPropTypes[type].constructor === Function) {
       var propType = newPropTypes[type];
       propType = propType.bind(newPropTypes);
       propType.isDeprecated = deprecate.bind(newPropTypes, propType);
